@@ -4,6 +4,8 @@ signal hit # signal personalizada
 
 export var speed = 400 # speed player moves
 var screen_size
+# Add this variable to hold the clicked position.
+var target = Vector2()
 
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -11,14 +13,18 @@ func _ready():
 
 func _process(delta):
 	var velocity = Vector2()
-	if Input.is_action_pressed("move_right"):
-		velocity.x += 1
-	if Input.is_action_pressed("move_left"):
-		velocity.x -= 1
-	if Input.is_action_pressed("move_down"):
-		velocity.y += 1
-	if Input.is_action_pressed("move_up"):
-		velocity.y -= 1
+	# Move towards the target and stop when close.
+	if position.distance_to(target) > 10:
+		velocity = target - position
+	
+#	if Input.is_action_pressed("move_right"):
+#		velocity.x += 1
+#	if Input.is_action_pressed("move_left"):
+#		velocity.x -= 1
+#	if Input.is_action_pressed("move_down"):
+#		velocity.y += 1
+#	if Input.is_action_pressed("move_up"):
+#		velocity.y -= 1
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
 		$AnimatedSprite.play() # $ equals to: get_node("AnimatedSprite")
@@ -47,10 +53,13 @@ func _on_Player_body_entered(body):
 
 func start(pos):
 	position = pos
+	target = pos # Initial target is the start position.
 	show()
 	$CollisionShape2D.disabled = false
 
-#func game_over():
-#	$ScoreTimer.stop()
-#	$MobTimer.stop()
+# Change the target whenever a touch event happens.
+func _input(event):
+	if event is InputEventScreenTouch and event.pressed:
+		target = event.position
+
 
