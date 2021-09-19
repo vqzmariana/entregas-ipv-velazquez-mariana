@@ -4,6 +4,11 @@ onready var cannon:Sprite = $Cannon
 var projectile_container:Node
 var speed = 200 #Pixeles
 
+export (float) var Aceleracion:float = 20.0
+export (float) var Speed_limit:float = 600.0
+export (float) var Friction_weight:float = 0.1
+var velocity:Vector2 = Vector2.ZERO
+
 func _physics_process(delta):
 	# Manera optimizada
 	var direction_optimized:int = int(Input.is_action_pressed("move_right")) - int(Input.is_action_pressed("move_left"))
@@ -18,7 +23,15 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("fire"):
 		cannon.fire()
 	
-	position.x += direction_optimized * speed * delta
+	if(direction_optimized != 0):
+		# clamp limita el valor dentro de un rango dado: speed_limit ## suma velocidad -> sensacion de aceleracion
+		velocity.x = clamp((velocity.x + (direction_optimized*Aceleracion)), -Speed_limit, Speed_limit )
+	else:
+		# si no se mueve, frena segun peso
+		velocity.x = lerp(velocity.x, 0, Friction_weight) if abs(velocity.x) > 1 else 0
+	
+	velocity.x += direction_optimized * speed * delta
+	position += velocity*delta 
 
 func set_projectile_container(containet:Node):
 	cannon.projectile_container = containet

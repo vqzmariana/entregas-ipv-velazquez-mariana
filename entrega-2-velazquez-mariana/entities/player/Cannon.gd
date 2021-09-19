@@ -12,5 +12,7 @@ func fire():
 	projectile_inst.connect("delete_requested", self, "_on_projectile_delete_requested")
 
 func _on_projectile_delete_requested(projectile: Projectile):
+#	print("bye from cannon")
 	projectile_container.remove_child(projectile)
+#	call_deferred("remove_child", projectile)
 	projectile.queue_free()
