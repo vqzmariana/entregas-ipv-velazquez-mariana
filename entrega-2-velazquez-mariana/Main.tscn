@@ -34,4 +34,3 @@ position = Vector2( 396.354, 394.083 )
 
 [node name="TurretBuilder" parent="." instance=ExtResource( 6 )]
 turret_scene = ExtResource( 5 )
-amount = 1.0
