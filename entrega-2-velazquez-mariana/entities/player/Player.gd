@@ -1,6 +1,7 @@
 extends Sprite
 
 onready var cannon:Sprite = $Cannon
+onready var screen_size = get_viewport_rect().size
 var projectile_container:Node
 var speed = 200 #Pixeles
 
@@ -31,7 +32,10 @@ func _physics_process(delta):
 		velocity.x = lerp(velocity.x, 0, Friction_weight) if abs(velocity.x) > 1 else 0
 	
 	velocity.x += direction_optimized * speed * delta
-	position += velocity*delta 
+	var next_pos = position + velocity*delta
+	next_pos.x = clamp(next_pos.x, 0, screen_size.x)
+	next_pos.y = clamp(next_pos.y, 0, screen_size.y)
+	position = next_pos
 
 func set_projectile_container(containet:Node):
 	cannon.projectile_container = containet
