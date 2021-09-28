@@ -1,0 +1,85 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://entities/player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/textures/background.png" type="Texture" id=2]
+[ext_resource path="res://Main.gd" type="Script" id=3]
+[ext_resource path="res://entities/enemies/Turret.tscn" type="PackedScene" id=4]
+[ext_resource path="res://entities/enemies/TurretsSpawner.gd" type="Script" id=5]
+[ext_resource path="res://world/FloorStaticBody.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/textures/player.png" type="Texture" id=7]
+[ext_resource path="res://world/StaticLine.tscn" type="PackedScene" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 33.3508, 34.353 )
+
+[node name="Main" type="Node"]
+script = ExtResource( 3 )
+
+[node name="BackgroundSceneLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Background" type="TextureRect" parent="BackgroundSceneLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = -96.0
+margin_right = 1399.0
+margin_bottom = 63.0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 413.003, 395.272 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+
+[node name="TurretsSpawner" type="Node2D" parent="."]
+position = Vector2( 16, 224 )
+script = ExtResource( 5 )
+turret_scene = ExtResource( 4 )
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2( 187.515, 393.195 )
+
+[node name="Sprite" type="Sprite" parent="RigidBody2D"]
+position = Vector2( -2, 1 )
+texture = ExtResource( 7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2( -3.36739, 5.6123 )
+shape = SubResource( 1 )
+
+[node name="Floor" parent="." instance=ExtResource( 6 )]
+
+[node name="Floor3" parent="." instance=ExtResource( 6 )]
+position = Vector2( 1394.02, -0.037384 )
+
+[node name="Floor2" parent="." instance=ExtResource( 6 )]
+position = Vector2( 747.353, 60.4337 )
+
+[node name="StaticLine_long" parent="." instance=ExtResource( 8 )]
+position = Vector2( 96, 24 )
+scale = Vector2( 3.46121, 1.02204 )
+
+[node name="StaticLine_init" parent="." instance=ExtResource( 8 )]
+scale = Vector2( 1.28137, 1.13803 )
+
+[node name="StaticLine_scal1" parent="." instance=ExtResource( 8 )]
+position = Vector2( -48, 16 )
+scale = Vector2( 0.796519, 0.789563 )
+
+[node name="StaticLine_scal2" parent="." instance=ExtResource( 8 )]
+position = Vector2( 368, 16 )
+scale = Vector2( 0.796519, 0.789563 )
+
+[node name="StaticLine_scal3" parent="." instance=ExtResource( 8 )]
+position = Vector2( 552, -72 )
+scale = Vector2( 0.796519, 0.789563 )
+
+[node name="StaticLine_scal4" parent="." instance=ExtResource( 8 )]
+position = Vector2( 1464, 0 )
+scale = Vector2( 0.796519, 0.789563 )
