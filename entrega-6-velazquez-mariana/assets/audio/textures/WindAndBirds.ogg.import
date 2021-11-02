@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/WindAndBirds.ogg-34afbaac111bb08b1158267efd7372a4.oggstr"
+
+[deps]
+
+source_file="res://assets/audio/textures/WindAndBirds.ogg"
+dest_files=[ "res://.import/WindAndBirds.ogg-34afbaac111bb08b1158267efd7372a4.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
